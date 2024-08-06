@@ -1,56 +1,59 @@
-# Project Title
+# Hospital Management System
 
-## Description
+## Project Overview
 
-Provide a brief description of your project, its purpose, and main functionalities.
+The Hospital Management System is a project developed using Spring Boot. It is designed to manage hospital operations such as user requests and roles within the system. The project uses JPA for entity management and Lombok to reduce boilerplate code.
 
-## Features
+## Project Structure
 
-- List of features
-- Example: User authentication, CRUD operations, etc.
+### Entities
 
-## Technologies Used
+1. **Login**
+   - Represents the login details of users.
+   - Fields: `id`, `email`, `password`
+   - Relationships: One-to-One with `UserRequest`
 
-- Java
-- Spring Boot
-- Hibernate
-- MySQL
-- HTML
-- CSS
-- JavaScript
+2. **UserRequest**
+   - Represents user requests and their details.
+   - Fields: `id`, `usernumber`, `firstname`, `lastname`, `address`, `zipcode`, `country`, `gender`, `mobNumber`
+   - Relationships: One-to-One with `Role`
 
-## Setup and Installation
+3. **Role**
+   - Represents the roles assigned to users.
+   - Fields: `id`, `rolename`
 
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/Pranaydalvi/YourRepositoryName.git
-    ```
-2. Navigate to the project directory:
+### Lombok Annotations
+
+- `@Getter` and `@Setter`: Automatically generate getter and setter methods.
+- `@AllArgsConstructor`: Generates a constructor with parameters for all fields.
+- `@NoArgsConstructor`: Generates a no-argument constructor.
+- `@ToString`: Generates a `toString` method.
+
+## Setup
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/yourusername/hospital-management-system.git
+
+2. **Navigate to the project directory:**
     ```bash
     cd YourRepositoryName
     ```
-3. Install dependencies:
+3. **Install dependencies:**
     ```bash
     // Commands to install dependencies
     ```
-4. Run the application:
+4. **Run the application:**
     ```bash
     // Command to run the application
     ```
 
 ## Usage
 
-Provide instructions on how to use the project. Include examples if necessary.
+Once the application is running, you can interact with the endpoints as per the defined controllers in your Spring Boot application.
 
-## Contributing
-
-Contributions are welcome! Please fork the repository and create a pull request.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE.md file for details.
 
 ## Contact
 
-If you have any questions or suggestions, feel free to reach out to me at [Your Email Address].
+If you have any questions or suggestions, feel free to reach out to me at pranaydalvi122@gmail.com
 
