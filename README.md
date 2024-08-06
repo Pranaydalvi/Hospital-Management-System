@@ -5,7 +5,7 @@
 The Hospital Management System is a project developed using Spring Boot. It is designed to manage hospital operations such as user requests and roles within the system. The project uses JPA for entity management and Lombok to reduce boilerplate code.
 
 ## project Source Code link 
-
+https://github.com/Pranaydalvi/Hospital-Management-System.git
 ## Project Structure
 
 ### Entities
