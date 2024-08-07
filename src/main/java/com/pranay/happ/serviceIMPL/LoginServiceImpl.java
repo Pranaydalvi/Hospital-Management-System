@@ -45,34 +45,30 @@ public class LoginServiceImpl implements LoginServiceI {
 
 	public UserResponseDto getLogin(String uname, String pass) {
 		UserResponseDto userResponseDto = new UserResponseDto();
-		Login login = loginRepository.findByEmail(uname);
-		if (login != null) {
-			if (login.getPassword() == pass) {
-				UserRequest userRequest = login.getUserRequest();
-				if (userRequest.isStatus()) {
-					if (userRequest.getRole() != null) {
-						userResponseDto.setUsernumber(userRequest.getUsernumber());
-						userResponseDto.setFirstname(userRequest.getFirstname());
-						userResponseDto.setLastname(userRequest.getLastname());
-						userResponseDto.setEmail(login.getEmail());
-						userResponseDto.setMobNumber(userRequest.getMobNumber());
-						return userResponseDto;
-					} else {
-						userResponseDto.setErrorMsg("Access Denied, Please connect with your Administrator.");
-						return userResponseDto;
-					}
-				} else {
-					userResponseDto.setErrorMsg("Access Denied, Account is not active.");
-					return userResponseDto;
-				}
-			} else {
-				userResponseDto.setErrorMsg("Invalid Password");
-				return userResponseDto;
-			}
-		} else {
-			userResponseDto.setErrorMsg("User Does not Exists.");
-			return userResponseDto;
-		}
+	    Login login = loginRepository.findByEmail(uname);
+	    if (login == null) {
+	        userResponseDto.setErrorMsg("User does not exist.");
+	        return userResponseDto;
+	    }
+	    if (!login.getPassword().equals(pass)) {
+	        userResponseDto.setErrorMsg("Invalid password.");
+	        return userResponseDto;
+	    }
+	    UserRequest userRequest = login.getUserRequest();
+	    if (!userRequest.isStatus()) {
+	        userResponseDto.setErrorMsg("Access denied, account is not active.");
+	        return userResponseDto;
+	    }
+	    if (userRequest.getRole() == null) {
+	        userResponseDto.setErrorMsg("Access denied, please connect with your administrator.");
+	        return userResponseDto;
+	    }
+	    userResponseDto.setUsernumber(userRequest.getUsernumber());
+	    userResponseDto.setFirstname(userRequest.getFirstname());
+	    userResponseDto.setLastname(userRequest.getLastname());
+	    userResponseDto.setEmail(login.getEmail());
+	    userResponseDto.setMobNumber(userRequest.getMobNumber());
+	    return userResponseDto;
 	}
 
 }
