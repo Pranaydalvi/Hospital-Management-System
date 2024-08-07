@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.pranay.happ.dto.ResponseDto;
 import com.pranay.happ.entity.Login;
+import com.pranay.happ.entity.Role;
 import com.pranay.happ.entity.UserRequest;
 import com.pranay.happ.repo.LoginRepository;
+import com.pranay.happ.repo.RoleRepository;
 import com.pranay.happ.repo.UserRepository;
 import com.pranay.happ.serviceI.UserServiceI;
 import com.pranay.happ.util.EmailSender;
@@ -22,6 +24,9 @@ public class UserServiceIMPL implements UserServiceI {
 
 	@Autowired
 	private LoginRepository loginRepository;
+	
+	@Autowired
+	private RoleRepository roleRepository;
 	
 	@Autowired
 	private JavaMailSender javaMailSender;
@@ -41,6 +46,9 @@ public class UserServiceIMPL implements UserServiceI {
 
 		String userId = UserRequestIDGenerator.generateUserID();
 		login.getUserRequest().setUsernumber(userId);
+		login.getUserRequest().setStatus(true);
+		Role role = roleRepository.findById(2).get();
+		login.getUserRequest().setRole(role);
 		Login login2 = loginRepository.save(login);
 
 		if (login2 != null && login2.getId() > 0) {

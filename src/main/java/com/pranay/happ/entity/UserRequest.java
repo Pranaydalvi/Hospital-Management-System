@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.Type;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,6 +42,9 @@ public class UserRequest {
 	private String gender;
 	
 	private String mobNumber;
+	
+	@Type(type = "yes_no")
+	private boolean status;
 	
 	@OneToOne(cascade = CascadeType.DETACH)
 	private Role role;

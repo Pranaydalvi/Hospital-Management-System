@@ -14,7 +14,7 @@ import com.pranay.happ.entity.Login;
 import com.pranay.happ.entity.Role;
 import com.pranay.happ.serviceI.LoginServiceI;
 import com.pranay.happ.serviceI.RoleServiceI;
-
+//http://localhost:
 @RestController
 @RequestMapping(value = "/api/admin")
 public class LoginController {
@@ -28,6 +28,7 @@ public class LoginController {
 		UserResponseDto userResponseDto = loginServiceI.getLoginData(login.getEmail(), login.getPassword());
 		return new ResponseEntity<UserResponseDto>(userResponseDto,HttpStatus.OK);
 	}
+	
 }
 
 
