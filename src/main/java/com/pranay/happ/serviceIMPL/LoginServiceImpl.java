@@ -3,6 +3,7 @@ package com.pranay.happ.serviceIMPL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pranay.happ.dto.Response;
 import com.pranay.happ.dto.UserResponseDto;
 import com.pranay.happ.entity.Login;
 import com.pranay.happ.entity.UserRequest;
@@ -69,6 +70,20 @@ public class LoginServiceImpl implements LoginServiceI {
 	    userResponseDto.setEmail(login.getEmail());
 	    userResponseDto.setMobNumber(userRequest.getMobNumber());
 	    return userResponseDto;
+	}
+
+	@Override
+	public Response forgotpassword(String email,String pass) {
+		Response response = new Response();
+		Login login = loginRepository.findByEmail(email);
+		login.setPassword(pass);
+		Login login2 = loginRepository.save(login);
+		if(login2 != null) {
+			response.setMsg("Password updated successfully.");
+		}else {
+			response.setMsg("Password not updated successfully.");
+		}
+		return response;
 	}
 
 }

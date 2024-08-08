@@ -8,6 +8,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import com.pranay.happ.dto.Response;
 import com.pranay.happ.dto.ResponseDto;
 import com.pranay.happ.entity.Login;
 import com.pranay.happ.entity.Role;
@@ -29,6 +30,9 @@ public class UserServiceIMPL implements UserServiceI {
 	private RoleRepository roleRepository;
 	
 	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
 	private JavaMailSender javaMailSender;
 
 	@Override
@@ -47,7 +51,7 @@ public class UserServiceIMPL implements UserServiceI {
 		String userId = UserRequestIDGenerator.generateUserID();
 		login.getUserRequest().setUsernumber(userId);
 		login.getUserRequest().setStatus(true);
-		Role role = roleRepository.findById(2).get();
+		Role role = roleRepository.findById(3).get();
 		login.getUserRequest().setRole(role);
 		Login login2 = loginRepository.save(login);
 
@@ -66,4 +70,45 @@ public class UserServiceIMPL implements UserServiceI {
 
 	}
 
+	@Override
+	public UserRequest getUserByUserNumber(String unum) {
+		UserRequest user=userRepository.findByUsernumber(unum);
+		return user;
+	}
+
+	@Override
+	public Response updateUserByUserNum(String unum, UserRequest user) {
+		Response response = new Response();
+        UserRequest existingUser = userRepository.findByUsernumber(unum);
+        if (existingUser == null) {
+            response.setMsg("User not found.");
+            return response;
+        }
+        existingUser.setFirstname(user.getFirstname());
+        existingUser.setLastname(user.getLastname());
+        existingUser.setAddress(user.getAddress());
+        existingUser.setZipcode(user.getZipcode());
+        existingUser.setCountry(user.getCountry());
+        existingUser.setGender(user.getGender());
+        existingUser.setMobNumber(user.getMobNumber());
+        userRepository.save(existingUser);
+        response.setMsg("User data successfully updated.");
+        return response;
+    }
+
+	@Override
+	public Response deleteUserByEmail(String email) {
+		Response response = new Response();
+		Login login=loginRepository.findByEmail(email);
+		if (login == null) {
+            response.setMsg("User not found.");
+            return response;
+        }else {
+        	loginRepository.delete(login);
+        	response.setMsg("User successfully Deleted.");
+            return response;
+        }
+	}
+
+	
 }
