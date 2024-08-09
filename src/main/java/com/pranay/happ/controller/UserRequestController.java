@@ -54,7 +54,7 @@ public class UserRequestController {
 		if (response != null) {
 			return new ResponseEntity<Response>(response, HttpStatus.OK);
 		}
-		return new ResponseEntity<Response>(response, HttpStatus.OK);
+		return new ResponseEntity<Response>(response, HttpStatus.NOT_FOUND);
 	}
 	}
 
