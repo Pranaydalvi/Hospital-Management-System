@@ -17,8 +17,11 @@ import com.pranay.happ.entity.Role;
 import com.pranay.happ.serviceI.LoginServiceI;
 import com.pranay.happ.serviceI.RoleServiceI;
 import com.pranay.happ.serviceIMPL.LoginServiceImpl;
+
+import lombok.extern.slf4j.Slf4j;
 //http://localhost:
 @RestController
+@Slf4j
 @RequestMapping(value = "/api/admin")
 public class LoginController {
 	
@@ -31,6 +34,10 @@ public class LoginController {
 	@PostMapping(value = "/login")
 	public ResponseEntity<UserResponseDto> getLoginData(@RequestBody Login login){
 		System.out.println("Login Data Check : " + login);
+		log.info("Checking Login Data INFO : " + login);
+		log.warn("Checking Login Data WARN : " + login);
+		log.debug("Checking Login Data DEBUG : " + login);
+		log.trace("Checking Login Data TRACE: " + login);
 		UserResponseDto userResponseDto = impl.getLogin(login.getEmail(), login.getPassword());
 		return new ResponseEntity<UserResponseDto>(userResponseDto,HttpStatus.OK);
 	}
