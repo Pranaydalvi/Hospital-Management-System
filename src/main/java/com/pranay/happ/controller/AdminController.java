@@ -24,4 +24,5 @@ public class AdminController {
 		Response response = adminServiceI.assignRole(email, rolename);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
+	
 }

@@ -17,6 +17,4 @@ public interface UserServiceI {
 
 	UserRequestDto getUserReuestAppointmentData(String usernumber);
 
-	UserRequest getUserRequest(String usernumber);
-
 }

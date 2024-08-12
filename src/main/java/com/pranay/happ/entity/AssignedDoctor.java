@@ -27,5 +27,5 @@ public class AssignedDoctor {
 	
 	private String name;
 	
-	private String catogory;
+	private String catogory;	
 }

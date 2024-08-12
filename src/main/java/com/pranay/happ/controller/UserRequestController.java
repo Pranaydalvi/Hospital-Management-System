@@ -39,6 +39,7 @@ public class UserRequestController {
 
 	@GetMapping(value="/getUserByUserNumber")
 	public ResponseEntity<UserRequest> getUserByUserNumber(@RequestParam String unum){
+		log.info("User Request Data Fetching Start using usernumber : " + unum);
 		UserRequest user=userServiceI.getUserByUserNumber(unum);
 		return new ResponseEntity<UserRequest>(user,HttpStatus.FOUND);
 	}
@@ -60,13 +61,6 @@ public class UserRequestController {
 		}
 		return new ResponseEntity<Response>(response, HttpStatus.NOT_FOUND);
 	}
-	
-	@GetMapping(value = "/findUser/{usernumber}")
-	public ResponseEntity<UserRequest> getUserData(@PathVariable String usernumber){
-       log.info("User Request Data Fetching Start using usernumber : " + usernumber);
-       UserRequest userRequest = userServiceI.getUserRequest(usernumber);
-       return new ResponseEntity<UserRequest>(userRequest,HttpStatus.FOUND);
-	} 
 	
 	@GetMapping(value = "/userAllAppointment/{usernumber}")
 	public ResponseEntity<UserRequestDto> getUserAppointDetails(@PathVariable String usernumber){

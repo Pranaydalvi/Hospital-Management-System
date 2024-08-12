@@ -1,5 +1,6 @@
 package com.pranay.happ.serviceIMPL;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -87,6 +88,7 @@ public class UserServiceIMPL implements UserServiceI {
 	@Override
 	public UserRequest getUserByUserNumber(String unum) {
 		UserRequest user=userRepository.findByUsernumber(unum);
+		log.debug("fetched User Request data : " + user);
 		return user;
 	}
 
@@ -129,50 +131,42 @@ public class UserServiceIMPL implements UserServiceI {
 		UserRequest user = userRepository.findByUsernumber(usernumber);
 		List<Appointment> appointments = appointmentRepository.findByUserRequestUsernumber(usernumber);
 		log.debug("Appointment List : " + appointments);
-		List<AppointmentDto> appointmentDtos = appointments.stream().map(appointment -> {
-	        AppointmentDto dto = new AppointmentDto();
-	        dto.setAppintmentNumber(appointment.getAppointmentNumber());
-	        dto.setPname(appointment.getPname());
-	        dto.setDate(appointment.getDate());
-	        dto.setTime(appointment.getTime());
-	        dto.setAge(appointment.getAge());
-	        dto.setGender(appointment.getGender());
-	        dto.setCategory(appointment.getCategory());
-	        dto.setAppointedDoctor(appointment.getAppointedDoctor());
-	        dto.setReferredDoctor(appointment.getReferredDoctor());
-	        dto.setLocation(appointment.getLocation());
-	        dto.setMobileNumber(appointment.getMobileNumber());
-	        dto.setEmail(appointment.getEmail());
-	        dto.setBloodGroup(appointment.getBloodGroup());
-	        dto.setVisitType(appointment.getVisitType());
-	        dto.setProblemHistory(appointment.getProblemHistory());
-	        dto.setZipcode(appointment.getZipcode());
-	        dto.setDoctornumber(appointment.getDoctornumber());
-	        return dto;
-	    }).collect(Collectors.toList());
+		UserRequestDto urt=new UserRequestDto();
+		urt.setUsernumber(user.getUsernumber());
+		urt.setAddress(user.getAddress());
+		urt.setCountry(user.getCountry());
+		urt.setFirstname(user.getFirstname());
+		urt.setLastname(user.getLastname());
+		urt.setGender(user.getGender());
+		urt.setMobNumber(user.getMobNumber());
+		urt.setZipcode(user.getZipcode());
+		
+		List<AppointmentDto> appointmentDtos = new ArrayList<>();
 	    
-	    // Create and populate UserRequestDto
-	    UserRequestDto userRequestDto = new UserRequestDto();
-	    userRequestDto.setUsernumber(user.getUsernumber());
-	    userRequestDto.setFirstname(user.getFirstname());
-	    userRequestDto.setLastname(user.getLastname());
-	    userRequestDto.setAddress(user.getAddress());
-	    userRequestDto.setZipcode(user.getZipcode());
-	    userRequestDto.setCountry(user.getCountry());
-	    userRequestDto.setGender(user.getGender());
-	    userRequestDto.setMobNumber(user.getMobNumber());
-	    userRequestDto.setStatus(user.isStatus());
-	    userRequestDto.setAppointmentDtos(appointmentDtos);
-	    
-		return userRequestDto;
-	}
+	    for (Appointment appointment : appointments) {
+	        AppointmentDto apd = new AppointmentDto();
+	        apd.setAppintmentNumber(appointment.getAppointmentNumber());
+	        apd.setPname(appointment.getPname());
+	        apd.setDate(appointment.getDate());
+	        apd.setTime(appointment.getTime());
+	        apd.setAge(appointment.getAge());
+	        apd.setGender(appointment.getGender());
+	        apd.setCategory(appointment.getCategory());
+	        apd.setAppointedDoctor(appointment.getAppointedDoctor());
+	        apd.setReferredDoctor(appointment.getReferredDoctor());
+	        apd.setLocation(appointment.getLocation());
+	        apd.setMobileNumber(appointment.getMobileNumber());
+	        apd.setEmail(appointment.getEmail());
+	        apd.setBloodGroup(appointment.getBloodGroup());
+	        apd.setVisitType(appointment.getVisitType());
+	        apd.setProblemHistory(appointment.getProblemHistory());
+	        apd.setZipcode(appointment.getZipcode());
+	        apd.setDoctornumber(appointment.getDoctornumber());
+	        appointmentDtos.add(apd);
+	    }
 
-	@Override
-	public UserRequest getUserRequest(String usernumber) {
-		UserRequest user = userRepository.findByUsernumber(usernumber);
-		log.debug("fetched User Request data : " + user);
-		return userRepository.findByUsernumber(usernumber);
-	}
-
-
+	    urt.setAppointmentDtos(appointmentDtos);
+		
+		return urt;
+}
 }
