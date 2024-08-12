@@ -1,5 +1,8 @@
 package com.pranay.happ.serviceIMPL;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +11,16 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import com.pranay.happ.controller.LoginController;
+import com.pranay.happ.dto.AppointmentDto;
 import com.pranay.happ.dto.Response;
 import com.pranay.happ.dto.ResponseDto;
+import com.pranay.happ.dto.UserRequestDto;
+import com.pranay.happ.entity.Appointment;
 import com.pranay.happ.entity.Login;
 import com.pranay.happ.entity.Role;
 import com.pranay.happ.entity.UserRequest;
+import com.pranay.happ.repo.AppointmentRepository;
 import com.pranay.happ.repo.LoginRepository;
 import com.pranay.happ.repo.RoleRepository;
 import com.pranay.happ.repo.UserRepository;
@@ -20,7 +28,10 @@ import com.pranay.happ.serviceI.UserServiceI;
 import com.pranay.happ.util.EmailSender;
 import com.pranay.happ.util.UserRequestIDGenerator;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class UserServiceIMPL implements UserServiceI {
 
 	@Autowired
@@ -31,6 +42,9 @@ public class UserServiceIMPL implements UserServiceI {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private AppointmentRepository appointmentRepository;
 	
 	@Autowired
 	private JavaMailSender javaMailSender;
@@ -110,5 +124,55 @@ public class UserServiceIMPL implements UserServiceI {
         }
 	}
 
-	
+	@Override
+	public UserRequestDto getUserReuestAppointmentData(String usernumber) {
+		UserRequest user = userRepository.findByUsernumber(usernumber);
+		List<Appointment> appointments = appointmentRepository.findByUserRequestUsernumber(usernumber);
+		log.debug("Appointment List : " + appointments);
+		List<AppointmentDto> appointmentDtos = appointments.stream().map(appointment -> {
+	        AppointmentDto dto = new AppointmentDto();
+	        dto.setAppintmentNumber(appointment.getAppointmentNumber());
+	        dto.setPname(appointment.getPname());
+	        dto.setDate(appointment.getDate());
+	        dto.setTime(appointment.getTime());
+	        dto.setAge(appointment.getAge());
+	        dto.setGender(appointment.getGender());
+	        dto.setCategory(appointment.getCategory());
+	        dto.setAppointedDoctor(appointment.getAppointedDoctor());
+	        dto.setReferredDoctor(appointment.getReferredDoctor());
+	        dto.setLocation(appointment.getLocation());
+	        dto.setMobileNumber(appointment.getMobileNumber());
+	        dto.setEmail(appointment.getEmail());
+	        dto.setBloodGroup(appointment.getBloodGroup());
+	        dto.setVisitType(appointment.getVisitType());
+	        dto.setProblemHistory(appointment.getProblemHistory());
+	        dto.setZipcode(appointment.getZipcode());
+	        dto.setDoctornumber(appointment.getDoctornumber());
+	        return dto;
+	    }).collect(Collectors.toList());
+	    
+	    // Create and populate UserRequestDto
+	    UserRequestDto userRequestDto = new UserRequestDto();
+	    userRequestDto.setUsernumber(user.getUsernumber());
+	    userRequestDto.setFirstname(user.getFirstname());
+	    userRequestDto.setLastname(user.getLastname());
+	    userRequestDto.setAddress(user.getAddress());
+	    userRequestDto.setZipcode(user.getZipcode());
+	    userRequestDto.setCountry(user.getCountry());
+	    userRequestDto.setGender(user.getGender());
+	    userRequestDto.setMobNumber(user.getMobNumber());
+	    userRequestDto.setStatus(user.isStatus());
+	    userRequestDto.setAppointmentDtos(appointmentDtos);
+	    
+		return userRequestDto;
+	}
+
+	@Override
+	public UserRequest getUserRequest(String usernumber) {
+		UserRequest user = userRepository.findByUsernumber(usernumber);
+		log.debug("fetched User Request data : " + user);
+		return userRepository.findByUsernumber(usernumber);
+	}
+
+
 }

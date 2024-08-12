@@ -10,17 +10,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component
-public class ApplicationFilter extends OncePerRequestFilter{
+public class ApplicationFilter extends OncePerRequestFilter {
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		//String token = request.getParameter("Authorization");
-				String token = request.getHeader("Authorization");
-				String jwtToken = token.substring(7);
-				System.out.println(jwtToken);
-				System.out.println("Filter Called.");
-				filterChain.doFilter(request, response);
-				System.out.println("Filter complete.");
+//		String token = request.getHeader("Authorization");
+//		String jwtToken = token.substring(7);
+//		System.out.println(jwtToken);
+		System.out.println("Filter Called.");
+		filterChain.doFilter(request, response);
+		System.out.println("Filter complete.");
 	}
 }

@@ -15,54 +15,48 @@ import com.pranay.happ.util.EmailSender;
 import com.pranay.happ.util.UserRequestIDGenerator;
 
 @Service
-public class AppointmentServiceIMPL implements AppointmentServiceI{
-	
+public class AppointmentServiceIMPL implements AppointmentServiceI {
+
 	@Autowired
 	private AppointmentRepository appointmentRepository;
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private JavaMailSender javaMailSender;
 
 	@Override
 	public Response bookAppointment(Appointment appointment, String usernumber) {
-Response response = new Response();
-        
-        // Find the user by usernumber
-        UserRequest user = userRepository.findByUsernumber(usernumber);
-        
-        if (user != null) {
-            System.out.println("User found: " + user.getUsernumber());
+		Response response = new Response();
 
-            // Associate the appointment with the found user
-            appointment.setUserRequest(user);
+		UserRequest user = userRepository.findByUsernumber(usernumber);
 
-            try {
-                // Generate a unique appointment number
-                String apponum = UserRequestIDGenerator.generateUserID();
-                appointment.setAppointmentNumber(apponum);
+		if (user != null) {
+			System.out.println("User found: " + user.getUsernumber());
 
-                // Save the appointment
-                Appointment savedAppointment = appointmentRepository.save(appointment);
+			appointment.setUserRequest(user);
 
-                // Check if the appointment was saved successfully
-                if (savedAppointment != null) {
-                    // Send appointment confirmation email
-                    EmailSender.sendAppointmentConfirmationEmail(javaMailSender, savedAppointment);
-                    response.setMsg("Appointment Data inserted.");
-                } else {
-                    response.setMsg("Appointment Data not inserted.");
-                }
-            } catch (Exception e) {
-                response.setMsg("Error occurred while inserting appointment data: " + e.getMessage());
-            }
-        } else {
-            response.setMsg("User not found.");
-        }
+			try {
+				String apponum = UserRequestIDGenerator.generateUserID();
+				appointment.setAppointmentNumber(apponum);
 
-        System.out.println("Response Message: " + response.getMsg());
-        return response;
-    }
+				Appointment savedAppointment = appointmentRepository.save(appointment);
+
+				if (savedAppointment != null) {
+					EmailSender.sendAppointmentConfirmationEmail(javaMailSender, savedAppointment);
+					response.setMsg("Appointment Data inserted.");
+				} else {
+					response.setMsg("Appointment Data not inserted.");
+				}
+			} catch (Exception e) {
+				response.setMsg("Error occurred while inserting appointment data: " + e.getMessage());
+			}
+		} else {
+			response.setMsg("User not found.");
+		}
+
+		System.out.println("Response Message: " + response.getMsg());
+		return response;
 	}
+}

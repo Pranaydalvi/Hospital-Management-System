@@ -1,11 +1,6 @@
-package com.pranay.happ.entity;
+package com.pranay.happ.dto;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,18 +8,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity
 @Setter
 @Getter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-public class Appointment {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+public class AppointmentDto {
 
-	private String appointmentNumber;
+	private String appintmentNumber;
 	
 	private String pname;
 	
@@ -57,8 +48,4 @@ public class Appointment {
 	private String zipcode;
 	
 	private String doctornumber;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	private UserRequest userRequest;
-
 }

@@ -14,11 +14,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pranay.happ.dto.Response;
+import com.pranay.happ.dto.UserRequestDto;
 import com.pranay.happ.entity.Login;
 import com.pranay.happ.entity.UserRequest;
 import com.pranay.happ.serviceI.UserServiceI;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
+@Slf4j
 @RequestMapping (value = "/api/user")
 public class UserRequestController {
 	
@@ -55,6 +59,20 @@ public class UserRequestController {
 			return new ResponseEntity<Response>(response, HttpStatus.OK);
 		}
 		return new ResponseEntity<Response>(response, HttpStatus.NOT_FOUND);
+	}
+	
+	@GetMapping(value = "/findUser/{usernumber}")
+	public ResponseEntity<UserRequest> getUserData(@PathVariable String usernumber){
+       log.info("User Request Data Fetching Start using usernumber : " + usernumber);
+       UserRequest userRequest = userServiceI.getUserRequest(usernumber);
+       return new ResponseEntity<UserRequest>(userRequest,HttpStatus.FOUND);
+	} 
+	
+	@GetMapping(value = "/userAllAppointment/{usernumber}")
+	public ResponseEntity<UserRequestDto> getUserAppointDetails(@PathVariable String usernumber){
+		log.info("Checking User number : " + usernumber);
+		UserRequestDto urd=userServiceI.getUserReuestAppointmentData(usernumber);
+		return new ResponseEntity<UserRequestDto>(urd,HttpStatus.FOUND);
 	}
 	}
 
