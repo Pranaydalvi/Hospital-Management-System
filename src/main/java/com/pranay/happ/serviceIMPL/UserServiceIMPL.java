@@ -26,6 +26,7 @@ import com.pranay.happ.repo.LoginRepository;
 import com.pranay.happ.repo.RoleRepository;
 import com.pranay.happ.repo.UserRepository;
 import com.pranay.happ.serviceI.UserServiceI;
+import com.pranay.happ.util.AllDTOConverter;
 import com.pranay.happ.util.EmailSender;
 import com.pranay.happ.util.UserRequestIDGenerator;
 
@@ -128,45 +129,17 @@ public class UserServiceIMPL implements UserServiceI {
 
 	@Override
 	public UserRequestDto getUserReuestAppointmentData(String usernumber) {
+		UserRequestDto userRequestDto = null;
 		UserRequest user = userRepository.findByUsernumber(usernumber);
+		if(user!=null) {
+			userRequestDto = AllDTOConverter.convertUserRequestDto(user);
+		}
+		
 		List<Appointment> appointments = appointmentRepository.findByUserRequestUsernumber(usernumber);
 		log.debug("Appointment List : " + appointments);
-		UserRequestDto urt=new UserRequestDto();
-		urt.setUsernumber(user.getUsernumber());
-		urt.setAddress(user.getAddress());
-		urt.setCountry(user.getCountry());
-		urt.setFirstname(user.getFirstname());
-		urt.setLastname(user.getLastname());
-		urt.setGender(user.getGender());
-		urt.setMobNumber(user.getMobNumber());
-		urt.setZipcode(user.getZipcode());
 		
-		List<AppointmentDto> appointmentDtos = new ArrayList<>();
-	    
-	    for (Appointment appointment : appointments) {
-	        AppointmentDto apd = new AppointmentDto();
-	        apd.setAppintmentNumber(appointment.getAppointmentNumber());
-	        apd.setPname(appointment.getPname());
-	        apd.setDate(appointment.getDate());
-	        apd.setTime(appointment.getTime());
-	        apd.setAge(appointment.getAge());
-	        apd.setGender(appointment.getGender());
-	        apd.setCategory(appointment.getCategory());
-	        apd.setAppointedDoctor(appointment.getAppointedDoctor());
-	        apd.setReferredDoctor(appointment.getReferredDoctor());
-	        apd.setLocation(appointment.getLocation());
-	        apd.setMobileNumber(appointment.getMobileNumber());
-	        apd.setEmail(appointment.getEmail());
-	        apd.setBloodGroup(appointment.getBloodGroup());
-	        apd.setVisitType(appointment.getVisitType());
-	        apd.setProblemHistory(appointment.getProblemHistory());
-	        apd.setZipcode(appointment.getZipcode());
-	        apd.setDoctornumber(appointment.getDoctornumber());
-	        appointmentDtos.add(apd);
-	    }
-
-	    urt.setAppointmentDtos(appointmentDtos);
-		
-		return urt;
+		List<AppointmentDto> appointmentDtos = AllDTOConverter.convertAppointmentDto(appointments);
+		userRequestDto.setAppointmentDtos(appointmentDtos);
+		return userRequestDto;
 }
 }

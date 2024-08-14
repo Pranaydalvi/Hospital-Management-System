@@ -18,7 +18,7 @@ public class AdminController {
 	@Autowired
 	private AdminServiceI adminServiceI;
 
-	@GetMapping(value = "/assignRole")
+	@GetMapping(value ="/assignRole")
 	public ResponseEntity<Response> assignRoleToUser(@RequestParam String email,@RequestParam String rolename){
 		System.out.println("Check Role Data For USer : " + email + " " + rolename);
 		Response response = adminServiceI.assignRole(email, rolename);

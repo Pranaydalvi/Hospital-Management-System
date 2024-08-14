@@ -2,17 +2,12 @@ package com.pranay.happ.dto;
 
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Builder;
+import lombok.Data; 
 
-@Setter
-@Getter
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
+
+@Data
+@Builder
 public class AppointmentDto {
 
 	private String appintmentNumber;
