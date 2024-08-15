@@ -32,5 +32,7 @@ public class UserResponseDto {
 	private String email;
 	
 	private String errorMsg;
+	
+	private String rolename;
 
 }
