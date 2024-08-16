@@ -70,6 +70,7 @@ public class LoginServiceImpl implements LoginServiceI {
 	    userResponseDto.setLastname(userRequest.getLastname());
 	    userResponseDto.setEmail(login.getEmail());
 	    userResponseDto.setMobNumber(userRequest.getMobNumber());
+	    userResponseDto.setRolename(userRequest.getRole().getRolename());
 	    return userResponseDto;
 	}
 

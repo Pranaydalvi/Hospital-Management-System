@@ -58,6 +58,8 @@ public class Appointment {
 	
 	private String doctornumber;
 	
+	private String status; 
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private UserRequest userRequest;
 

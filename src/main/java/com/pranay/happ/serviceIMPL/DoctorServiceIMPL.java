@@ -1,5 +1,8 @@
 package com.pranay.happ.serviceIMPL;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +36,24 @@ public class DoctorServiceIMPL implements DoctorServiceI{
         }
         return response;
     }
+	
+	@Override
+	public List<String> getAllCategories() {
+        return doctorRepository.findAll()
+                         .stream()
+                         .map(AssignedDoctor::getCatogory)
+                         .distinct().collect(Collectors.toList());
+    }
+
+	@Override
+    public List<AssignedDoctor> getDoctorsByCategory(String category) {
+        return doctorRepository.findByCatogory(category);
+    }
+
+	@Override
+	public AssignedDoctor findDoctor(String catogory, String doctorName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
