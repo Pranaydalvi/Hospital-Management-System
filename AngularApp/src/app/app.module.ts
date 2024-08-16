@@ -13,6 +13,7 @@ import { AdminComponent } from './admin/admin.component';
 import { PatientComponent } from './patient/patient.component';
 import { NurseComponent } from './nurse/nurse.component';
 import { DoctorComponent } from './doctor/doctor.component';
+import { AppointmentComponent } from './appointment/appointment.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,8 @@ import { DoctorComponent } from './doctor/doctor.component';
     AdminComponent,
     PatientComponent,
     NurseComponent,
-    DoctorComponent
+    DoctorComponent,
+    AppointmentComponent
   ],
   imports: [
     BrowserModule,

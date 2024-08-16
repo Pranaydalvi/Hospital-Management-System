@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
@@ -8,6 +8,7 @@ import { PatientComponent } from './patient/patient.component';
 import { AdminComponent } from './admin/admin.component';
 import { DoctorComponent } from './doctor/doctor.component';
 import { NurseComponent } from './nurse/nurse.component';
+import { AppointmentComponent } from './appointment/appointment.component';
 
 const routes: Routes = [
   {path:"",component:HomeComponent},
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path:"admin",component:AdminComponent},
   {path:"doctor",component:DoctorComponent},
   {path:"patient",component:PatientComponent},
+  {path:"bookappointment",component:AppointmentComponent},
   {path:"nurse",component:NurseComponent},
   {path:"**",component:PagenotfoundComponent}
 ];

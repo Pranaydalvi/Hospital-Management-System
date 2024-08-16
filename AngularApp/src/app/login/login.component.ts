@@ -34,19 +34,13 @@ export class LoginComponent {
       this.generatedCode += characters.charAt(Math.floor(Math.random() * characters.length));
     }
   }
-  // userrolename() {
-  //   this.loginService.login(this.login).subscribe((rs: any) => {
-  //     console.log("Login Response: ", rs);
-  //     this.userResponse = rs;
-  //     console.log("Rolename: ", this.userResponse.rolename);
-  //   });
-  // }
+
   userLogin() {
     if (this.userEnteredCode === this.generatedCode) {
        this.loginService.login(this.login).subscribe((rs:any)=>{
           console.log(rs);
           this.userResponse = rs;
-          if(this.userResponse != null){
+          if(this.userResponse.errorMsg == null){
             if(this.userResponse.rolename === this.admin){
                 this.router.navigate(['/admin']);
             } else if(this.userResponse.rolename === this.patient){
@@ -62,7 +56,7 @@ export class LoginComponent {
        });
       } else {
         alert('CAPTCHA code does not match. Please try again.');
-        this.generateCaptchaCode(); // Regenerate CAPTCHA code on failure
+        this.generateCaptchaCode();
       }
     }
   }

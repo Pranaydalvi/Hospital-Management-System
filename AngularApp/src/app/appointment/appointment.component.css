@@ -1,0 +1,71 @@
+/* General styling for the form */
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for labels */
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+/* Style for input fields */
+input[type="text"],
+input[type="date"],
+input[type="time"],
+input[type="number"],
+input[type="tel"],
+input[type="email"],
+textarea,
+select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Styling for select dropdown */
+select {
+    width: 100%;
+}
+
+/* Styling for the submit button */
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Button hover effect */
+button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+/* Preformatted text adjustment */
+pre {
+    font-family: inherit;
+    white-space: normal;
+}
+
+/* Style to center the form */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #444;
+}

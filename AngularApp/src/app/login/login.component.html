@@ -5,7 +5,6 @@
     <label>Password :</label>
     <input type="password" [(ngModel)]="login.password"><br><br>
 
-    <!-- CAPTCHA Code Display -->
     <div class="captcha-container">
         <p>Please enter the following code:</p>
         <p class="captcha-code">{{ generatedCode }}</p>
@@ -14,6 +13,5 @@
 
     <input type="submit" value="Login" (click)="userLogin()"><br><br>
 
-    <!-- <input type="submit" value="userrolename" (click)="userrolename()"><br><br> -->
     <p>Don’t have an account yet? <a routerLink="/reg" class="btn">Sign Up Now</a></p>
 </div>
