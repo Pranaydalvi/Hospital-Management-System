@@ -1,8 +1,11 @@
 <h1>Book Appointment</h1>
-<form>
+<form (ngSubmit)="submitAppointment()">
     <pre>
         <label>Patient Name:</label>
         <input type="text" name="pname" [(ngModel)]="appointment.pname" required>
+
+        <label>Patient User Number</label>
+        <input type="text" name="usernumber" [(ngModel)]="appointment.usernumber" required>
             
         <label>Date:</label>
         <input type="date" name="date" [(ngModel)]="appointment.date" required>

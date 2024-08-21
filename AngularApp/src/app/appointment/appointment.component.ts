@@ -19,7 +19,9 @@ export class AppointmentComponent {
   ngOnInit(): void {
     // Fetch all categories on component initialization
     this.doctorService.getCategories().subscribe(data => {
-      this.categories = data;
+      if (data) {
+        this.categories = data;
+      }
     });
   }
 
@@ -28,5 +30,16 @@ export class AppointmentComponent {
     this.doctorService.getDoctorsByCategory(category).subscribe(data => {
       this.doctors = data;
     });
+  }
+  submitAppointment(): void {
+    this.doctorService.saveAppointment(this.appointment).subscribe(
+      response => {
+        console.log('Response:', response.msg);
+      },
+      error => {
+        console.error('Error:', error);
+        alert('An error occurred while booking the appointment: ' + error.message);
+      }
+    );
   }
 }

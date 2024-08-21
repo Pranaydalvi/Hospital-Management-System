@@ -98,6 +98,7 @@ public class EmailSender {
                     "            <p><strong>Appointed Doctor:</strong> " + appointment.getAppointedDoctor() + "</p>\r\n" +
                     "            <p><strong>Location:</strong> " + appointment.getLocation() + "</p>\r\n" +
                     "            <p><strong>Category:</strong> " + appointment.getCategory() + "</p>\r\n" +
+                    "            <p><strong>Appointment Status:</strong> " + appointment.getStatus() + "</p>\r\n" +
                     "            <p><strong>Visit Type:</strong> " + appointment.getVisitType() + "</p>\r\n" +
                     "            <p>If you have any questions or need to reschedule, please contact our support team.</p>\r\n" +
                     "            <p>Thank you for choosing our services. We look forward to your visit.</p>\r\n" +

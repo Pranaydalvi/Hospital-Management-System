@@ -10,4 +10,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Intege
 
 	List<Appointment> findByUserRequestUsernumber(String usernumber);
 
+	boolean existsByAppointedDoctorAndDateAndTime(String appointedDoctor, String date, String time);
+
 }

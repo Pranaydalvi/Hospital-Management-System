@@ -25,7 +25,7 @@ public class AppointmentServiceIMPL implements AppointmentServiceI {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private DoctorRepository doctorRepository;
 
@@ -34,36 +34,51 @@ public class AppointmentServiceIMPL implements AppointmentServiceI {
 
 	@Override
 	public Response bookAppointment(Appointment appointment, String usernumber) {
-		Response response = new Response();
+	    Response response = new Response();
 
-		UserRequest user = userRepository.findByUsernumber(usernumber);
+	    try {
+	        UserRequest user = userRepository.findByUsernumber(usernumber);
+	        if (user == null) {
+	            response.setMsg("User not found.");
+	            return response;
+	        }
 
-		if (user != null) {
-			System.out.println("User found: " + user.getUsernumber());
-			appointment.setUserRequest(user);
-			AssignedDoctor assignedDoctor=doctorRepository.findByCatogoryAndName(appointment.getCategory(), appointment.getAppointedDoctor());
-			if(assignedDoctor==null) {
-				try {
-					String apponum = UserRequestIDGenerator.generateUserID();
-					appointment.setAppointmentNumber(apponum);
-					appointment.setStatus(Constants.PENDING);
-					Appointment savedAppointment = appointmentRepository.save(appointment);
-					if (savedAppointment != null) {
-//						EmailSender.sendAppointmentConfirmationEmail(javaMailSender, savedAppointment);
-						response.setMsg("Appointment Data inserted.");
-					} else {
-						response.setMsg("Appointment Data not inserted.");
-					}
-				} catch (Exception e) {
-					response.setMsg("Error occurred while inserting appointment data: " + e.getMessage());
-				}
-				
-			}
-			
-		} else {
-			response.setMsg("User not found.");
-		}
-		System.out.println("Response Message: " + response.getMsg());
-		return response;
+	        appointment.setUserRequest(user);
+
+	        AssignedDoctor assignedDoctor = doctorRepository.findByCatogoryAndName(appointment.getCategory(), appointment.getAppointedDoctor());
+	        if (assignedDoctor == null) {
+	            response.setMsg("Assigned doctor not found.");
+	            return response;
+	        }
+
+	        boolean isDoctorAvailable = appointmentRepository.existsByAppointedDoctorAndDateAndTime(
+	            assignedDoctor.getDoctornumber(), 
+	            appointment.getDate(), 
+	            appointment.getTime()
+	        );
+
+	        if (isDoctorAvailable) {
+	            appointment.setStatus(Constants.NEW);
+	        } else {
+	            appointment.setStatus(Constants.PENDING);
+	        }
+
+	        String apponum = UserRequestIDGenerator.generateUserID();
+	        appointment.setAppointmentNumber(apponum);
+
+	        Appointment savedAppointment = appointmentRepository.save(appointment);
+	        if (savedAppointment != null) {
+	            response.setMsg("Appointment Data inserted with status: " + appointment.getStatus());
+	        } else {
+	            response.setMsg("Appointment Data not inserted.");
+	        }
+	    } catch (Exception e) {
+	        response.setMsg("An error occurred: " + e.getMessage());
+	        e.printStackTrace();  // Print the stack trace to the server logs for debugging
+	    }
+
+	    return response;
 	}
+
+
 }
