@@ -7,7 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.pranay.happ.entity.Appointment;
+import org.springframework.stereotype.Repository;
+//Mark all your repositories with @Repository annotation
 
+@Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Integer>{
 
 	List<Appointment> findByUserRequestUsernumber(String usernumber);

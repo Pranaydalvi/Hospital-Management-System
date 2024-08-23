@@ -26,13 +26,15 @@ public class DoctorController {
 
 	@Autowired
 	private DoctorServiceI doctorServiceI;
-	
-	@PostMapping(value = "/AssignedDoctor")
-	public ResponseEntity<Response> insertRoleData(@RequestBody AssignedDoctor ad ){
+
+	// putting ("value =) is not necessary
+	@PostMapping("/AssignedDoctor")
+	public ResponseEntity<?> insertRoleData(@RequestBody AssignedDoctor ad ){
 		Response response = doctorServiceI.saveDoctorData(ad);
-		return new ResponseEntity<Response>(response,HttpStatus.OK);
+		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
-	
+
+
 	@GetMapping("/categories")
     public List<String> getAllCategories() {
         return doctorServiceI.getAllCategories();

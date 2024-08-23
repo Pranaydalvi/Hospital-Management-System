@@ -2,6 +2,8 @@ package com.pranay.happ.filter;
 
 
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,12 +17,18 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+
 @Component
 public class JwtUtility implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	public static final long JWT_TOKEN_VALIDITY = 30 * 60;
+
+    private static final String SECRET_KEY = "Some_key";
+
 
     @Value("${jwt.secret}")
     private String secretKey;
@@ -44,7 +52,17 @@ public class JwtUtility implements Serializable{
 
     //for retrieving any information from token we will need the secret key
     private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+        return Jwts.parser()
+                .verifyWith(getSignInKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+    }
+
+    private SecretKey getSignInKey() {
+        byte[] bytes = Base64.getDecoder()
+                .decode(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
+        return new SecretKeySpec(bytes, "HmacSHA256");
     }
 
 

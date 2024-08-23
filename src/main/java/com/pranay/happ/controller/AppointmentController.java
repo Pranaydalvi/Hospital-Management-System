@@ -15,17 +15,17 @@ import com.pranay.happ.entity.Appointment;
 import com.pranay.happ.serviceI.AppointmentServiceI;
 
 @RestController
-@RequestMapping(value ="/api/all")
+@RequestMapping(value = "/api/all")
 @CrossOrigin(origins = "http://localhost:4200/")
 public class AppointmentController {
 
-	@Autowired
-	private AppointmentServiceI appointmentServiceI;
-	
-	@PostMapping(value = "/BookAppointment/{usernumber}")
-	public ResponseEntity<Response> insertAppointmentData(@RequestBody Appointment appointment,@PathVariable String usernumber){
-		System.out.println("Appointment Data  : " + appointment);
-		Response response = appointmentServiceI.bookAppointment(appointment,usernumber);
-		return new ResponseEntity<Response>(response,HttpStatus.OK);
-	}
+    @Autowired
+    private AppointmentServiceI appointmentServiceI;
+
+    @PostMapping(value = "/BookAppointment/{userNumber}")
+    public ResponseEntity<Response> insertAppointmentData(@RequestBody Appointment appointment, @PathVariable String userNumber) {
+        System.out.println("Appointment Data  : " + appointment);
+        Response response = appointmentServiceI.bookAppointment(appointment, userNumber);
+        return new ResponseEntity<Response>(response, HttpStatus.OK);
+    }
 }	

@@ -8,11 +8,10 @@ import com.pranay.happ.entity.AssignedDoctor;
 public interface DoctorServiceI {
 
 	Response saveDoctorData(AssignedDoctor ad);
-	
-	AssignedDoctor findDoctor(String catogory,String doctorName);
 
 	List<String> getAllCategories();
 
 	List<AssignedDoctor> getDoctorsByCategory(String category);
 
+	AssignedDoctor findDoctor(String catogory, String doctorName);
 }

@@ -35,9 +35,7 @@ public class LoginController {
 	
 	@Autowired
 	private LoginServiceI loginServiceI;
-	
-	@Autowired
-	private LoginServiceImpl impl;
+
 	
 	@Autowired
 	private JwtUtility jwtUtility;
@@ -78,9 +76,9 @@ public class LoginController {
 		return new ResponseEntity<UserResponseDto>(userResponseDto,HttpStatus.OK);
 	}
 	
-	@GetMapping(value="/forgotpassword")
-	public ResponseEntity<Response> forgotpassword(@RequestParam String email,@RequestParam String pass){
-		Response response=loginServiceI.forgotpassword(email,pass);
+	@GetMapping(value="/forgotPassword")
+	public ResponseEntity<Response> forgotPassword(@RequestParam String email,@RequestParam String pass){
+		Response response=loginServiceI.forgotPassword(email,pass);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 }
