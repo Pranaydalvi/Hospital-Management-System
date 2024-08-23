@@ -7,6 +7,6 @@ public interface LoginServiceI {
 
 	UserResponseDto getLoginData(String uname,String pass);
 
-	Response forgotpassword(String email, String pass);
+	Response forgotPassword(String email, String pass);
 	
 }

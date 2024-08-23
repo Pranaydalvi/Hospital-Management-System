@@ -51,7 +51,7 @@ public class DoctorServiceIMPL implements DoctorServiceI{
     }
 
 	@Override
-	public AssignedDoctor findDoctor(String catogory, String doctorName) {
+	public AssignedDoctor findDoctor(String category, String doctorName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
