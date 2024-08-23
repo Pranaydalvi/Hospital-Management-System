@@ -21,7 +21,7 @@ import com.pranay.happ.serviceI.RoleServiceI;
 
 @RestController
 @RequestMapping(value ="/api/doctor")
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = "http://localhost:4200")
 public class DoctorController {
 
 	@Autowired

@@ -6,6 +6,6 @@ public class Constants {
 	
 	public static final String PENDING = "pending";
 	
-	public static final String COMPLETED = "COMPLETED";
+	public static final String COMPLETED = "completed";
 
 }

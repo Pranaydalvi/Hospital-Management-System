@@ -34,5 +34,7 @@ public class UserResponseDto {
 	private String errorMsg;
 	
 	private String rolename;
+	
+	private String token;
 
 }
