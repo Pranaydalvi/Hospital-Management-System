@@ -18,5 +18,4 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Intege
     long isDoctorBooked(@Param("doctornumber") String doctornumber, 
                            @Param("date") String date, 
                            @Param("time") String time);
-
 }

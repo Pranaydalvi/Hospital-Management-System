@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 //http://localhost:
 @RestController
 @Slf4j
-@RequestMapping(value = "/api/admin")
+@RequestMapping(value = "/api/user")
 @CrossOrigin(origins = "http://localhost:4200/")
 public class LoginController {
 	
