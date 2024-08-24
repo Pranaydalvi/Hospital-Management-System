@@ -1,0 +1,17 @@
+<div class="login-container">
+    <h1>Login Page</h1>
+    <label>Username :</label>
+    <input type="text" [(ngModel)]="login.email"><br><br>
+    <label>Password :</label>
+    <input type="password" [(ngModel)]="login.password"><br><br>
+
+    <div class="captcha-container">
+        <p>Please enter the following code:</p>
+        <p class="captcha-code">{{ generatedCode }}</p>
+        <input type="text" [(ngModel)]="userEnteredCode" placeholder="Enter the code"><br><br>
+    </div>
+
+    <input type="submit" value="Login" (click)="userLogin()"><br><br>
+
+    <p>Don’t have an account yet? <a routerLink="/reg" class="btn">Sign Up Now</a></p>
+</div>
