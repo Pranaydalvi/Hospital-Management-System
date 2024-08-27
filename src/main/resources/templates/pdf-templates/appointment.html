@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        h1 {
+            color: brown;
+        }
+        .details, .details th, .details td {
+            border: 1px solid brown;
+            border-collapse: collapse;
+        }
+        .details th {
+            background-color: brown;
+            color: white;
+        }
+        .details td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Appointment Confirmation</h1>
+    <table class="details">
+        <tr>
+            <th>Appointment Number</th>
+            <td th:text="${appointment.appointmentNumber}"></td>
+        </tr>
+        <tr>
+            <th>Patient Name</th>
+            <td th:text="${appointment.patientName}"></td>
+        </tr>
+        <tr>
+            <th>Date</th>
+            <td th:text="${appointment.date}"></td>
+        </tr>
+        <tr>
+            <th>Time</th>
+            <td th:text="${appointment.time}"></td>
+        </tr>
+        <tr>
+            <th>Doctor</th>
+            <td th:text="${appointment.doctorName}"></td>
+        </tr>
+        <tr>
+            <th>Location</th>
+            <td th:text="${appointment.location}"></td>
+        </tr>
+        <tr>
+            <th>Category</th>
+            <td th:text="${appointment.category}"></td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td th:text="${appointment.status}"></td>
+        </tr>
+        <tr>
+            <th>Visit Type</th>
+            <td th:text="${appointment.visitType}"></td>
+        </tr>
+    </table>
+</body>
+</html>
