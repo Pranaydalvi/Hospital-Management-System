@@ -12,6 +12,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Map;
@@ -28,19 +29,25 @@ public class PdfGenerateServiceImpl implements PdfGenerateService {
 
 	@Override
 	public void generatePdfFile(String templateName, Map<String, Object> data, String pdfFileName) {
-		Context context = new Context();
-		context.setVariables(data);
+	    Context context = new Context();
+	    context.setVariables(data);
 	    try {
 	        String htmlContent = templateEngine.process(templateName, context);
-	        try (FileOutputStream fileOutputStream = new FileOutputStream(pdfDirectory + pdfFileName)) {
+	        logger.debug("Generated HTML content: {}", htmlContent);
+
+	        String filePath = pdfDirectory + pdfFileName;
+	        try (FileOutputStream fileOutputStream = new FileOutputStream(filePath)) {
 	            ITextRenderer renderer = new ITextRenderer();
 	            renderer.setDocumentFromString(htmlContent);
 	            renderer.layout();
 	            renderer.createPDF(fileOutputStream, false);
 	            renderer.finishPDF();
+	            logger.info("PDF generated successfully: {}", pdfFileName);
+	        } catch (DocumentException | FileNotFoundException e) {
+	            logger.error("Error during PDF generation: {}", e.getMessage(), e);
 	        }
 	    } catch (Exception e) {
 	        logger.error("Error generating PDF file", e);
 	    }
-    }
 	}
+}

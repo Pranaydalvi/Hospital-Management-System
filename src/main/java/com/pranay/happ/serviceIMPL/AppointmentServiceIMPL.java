@@ -5,21 +5,18 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.pranay.happ.constant.Constants;
 import com.pranay.happ.dto.Response;
 import com.pranay.happ.entity.Appointment;
 import com.pranay.happ.entity.AssignedDoctor;
-import com.pranay.happ.entity.Role;
 import com.pranay.happ.entity.UserRequest;
 import com.pranay.happ.repo.AppointmentRepository;
 import com.pranay.happ.repo.DoctorRepository;
 import com.pranay.happ.repo.UserRepository;
 import com.pranay.happ.serviceI.AppointmentServiceI;
 import com.pranay.happ.serviceI.PdfGenerateService;
-import com.pranay.happ.util.EmailSender;
 import com.pranay.happ.util.UserRequestIDGenerator;
 
 @Service
@@ -33,9 +30,6 @@ public class AppointmentServiceIMPL implements AppointmentServiceI {
 
     @Autowired
     private DoctorRepository doctorRepository;
-
-    @Autowired
-    private JavaMailSender javaMailSender;
 
     @Autowired
     private PdfGenerateService pdfGenerateService;
@@ -89,11 +83,9 @@ public class AppointmentServiceIMPL implements AppointmentServiceI {
                 dataMap.put("visitType", appointment.getVisitType());
                 
                 String pdfFileName = "Appointment_" + appointment.getAppointmentNumber() + ".pdf";
-                String pdfFilePath = pdfDirectory + pdfFileName;
                 pdfGenerateService.generatePdfFile("appointment", dataMap, pdfFileName);
 
-                // Send email with PDF attachment
-                EmailSender.sendAppointmentConfirmationEmailWithAttachment(javaMailSender, appointment, pdfFilePath);
+                response.setMsg("PDF generated successfully: " + pdfFileName);
             } else {
                 response.setMsg("Appointment Data not inserted.");
             }
