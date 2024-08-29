@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Appointment Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #2C3E50;
+        }
+        p {
+            font-size: 14px;
+            color: #34495E;
+            line-height: 1.6;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #2C3E50;
+            color: white;
+        }
+        td {
+            background-color: #f9f9f9;
+        }
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 12px;
+            color: #7F8C8D;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Appointment Confirmation</h1>
+
+    <p>Dear <span th:text="${pname}"></span>,</p>
+
+    <p>Thank you for scheduling your appointment with us. Below are the details of your upcoming appointment. Please keep this information for your records. If you have any questions or need to reschedule, feel free to contact us at least 24 hours before your appointment time.</p>
+
+    <table>
+        <tr>
+            <th colspan="2">Appointment Details</th>
+        </tr>
+        <tr>
+            <td><strong>Appointment Number:</strong></td>
+            <td th:text="${appointmentNumber}"></td>
+        </tr>
+        <tr>
+            <td><strong>Patient Name:</strong></td>
+            <td th:text="${pname}"></td>
+        </tr>
+        <tr>
+            <td><strong>Appointment Date:</strong></td>
+            <td th:text="${date}"></td>
+        </tr>
+        <tr>
+            <td><strong>Appointment Time:</strong></td>
+            <td th:text="${time}"></td>
+        </tr>
+        <tr>
+            <td><strong>Appointed Doctor:</strong></td>
+            <td th:text="${appointedDoctor}"></td>
+        </tr>
+        <tr>
+            <td><strong>Location:</strong></td>
+            <td th:text="${location}"></td>
+        </tr>
+        <tr>
+            <td><strong>Category:</strong></td>
+            <td th:text="${category}"></td>
+        </tr>
+        <tr>
+            <td><strong>Status:</strong></td>
+            <td th:text="${status}"></td>
+        </tr>
+        <tr>
+            <td><strong>Visit Type:</strong></td>
+            <td th:text="${visitType}"></td>
+        </tr>
+    </table>
+
+    <p>Please arrive 10 minutes before your scheduled appointment time. If this is your first visit, bring any relevant medical documents and arrive 15 minutes early to complete any necessary paperwork.</p>
+
+    <p>We look forward to serving you and hope to make your visit as pleasant as possible.</p>
+
+    <div class="footer">
+        <p>This is an automatically generated confirmation. No signature is required.</p>
+    </div>
+
+</body>
+</html>

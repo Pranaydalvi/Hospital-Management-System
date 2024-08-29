@@ -1,6 +1,6 @@
 package com.pranay.happ.controller;
 
-import java.io.IOException;
+import java.io.IOException; 
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,12 +38,11 @@ public class AppointmentController {
 		Response response = appointmentServiceI.bookAppointment(appointment,usernumber);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
+	
 	@GetMapping("/test-pdf")
 	public void testPdfGeneration(HttpServletResponse response) throws IOException {
 	    Map<String, Object> data = new HashMap<>();
-	    data.put("appointmentNumber", "12345");
-	    // Add more data if necessary
 	    
-	    pdfGenerateService.generatePdfFile("test", data, "test.pdf");
+	    pdfGenerateService.generatePdfFile("test", data, "test1.pdf");
 	}
 }	

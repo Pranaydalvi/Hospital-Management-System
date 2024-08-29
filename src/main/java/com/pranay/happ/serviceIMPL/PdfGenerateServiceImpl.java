@@ -1,6 +1,6 @@
 package com.pranay.happ.serviceIMPL;
 
-import com.lowagie.text.DocumentException;
+import com.lowagie.text.DocumentException; 
 import com.pranay.happ.serviceI.PdfGenerateService;
 
 import org.slf4j.Logger;
@@ -12,7 +12,6 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Map;
@@ -29,11 +28,12 @@ public class PdfGenerateServiceImpl implements PdfGenerateService {
 
 	@Override
 	public void generatePdfFile(String templateName, Map<String, Object> data, String pdfFileName) {
-	    Context context = new Context();
+	    
+		Context context = new Context();
 	    context.setVariables(data);
 	    try {
-	        String htmlContent = templateEngine.process(templateName, context);
-	        logger.debug("Generated HTML content: {}", htmlContent);
+	        String htmlContent = templateEngine.process("appointment",context);
+//	        logger.debug("Generated HTML content: {}", htmlContent);
 
 	        String filePath = pdfDirectory + pdfFileName;
 	        try (FileOutputStream fileOutputStream = new FileOutputStream(filePath)) {

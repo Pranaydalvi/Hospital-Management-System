@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.pranay.happ.constant.Constants;
@@ -17,6 +18,7 @@ import com.pranay.happ.repo.DoctorRepository;
 import com.pranay.happ.repo.UserRepository;
 import com.pranay.happ.serviceI.AppointmentServiceI;
 import com.pranay.happ.serviceI.PdfGenerateService;
+import com.pranay.happ.util.EmailSender;
 import com.pranay.happ.util.UserRequestIDGenerator;
 
 @Service
@@ -33,6 +35,9 @@ public class AppointmentServiceIMPL implements AppointmentServiceI {
 
     @Autowired
     private PdfGenerateService pdfGenerateService;
+    
+    @Autowired
+    private JavaMailSender javaMailSender;
     
     @Value("${pdf.directory}")
     private String pdfDirectory;
@@ -85,7 +90,9 @@ public class AppointmentServiceIMPL implements AppointmentServiceI {
                 String pdfFileName = "Appointment_" + appointment.getAppointmentNumber() + ".pdf";
                 pdfGenerateService.generatePdfFile("appointment", dataMap, pdfFileName);
 
-                response.setMsg("PDF generated successfully: " + pdfFileName);
+                response.setMsg("PDF generated successfully: " + pdfFileName +"And also Sent attachment with mail to "+appointment.getEmail());
+                String pdfFilePath = pdfDirectory + pdfFileName;
+                EmailSender.sendAppointmentConfirmationEmailWithAttachment(javaMailSender, appointment, pdfFilePath);
             } else {
                 response.setMsg("Appointment Data not inserted.");
             }

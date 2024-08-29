@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Test pdf</title>
+</head>
+<body>
+
+  <table>
+    <tr>
+        <th>Customer</th>
+    </tr>
+    <tr>
+        <td th:text="'Company Name: ' + ${customer.companyName}"></td>
+    </tr>
+    <tr>
+        <td th:text="'Contact Name: ' + ${customer.contactName}"></td>
+    </tr>
+    <tr>
+        <td th:text="'Address: ' + ${customer.address}"></td>
+    </tr>
+    <tr>
+        <td th:text="'Email: ' + ${customer.email}"></td>
+    </tr>
+    <tr>
+        <td th:text="'Phone: ' + ${customer.phone}"></td>
+    </tr>
+</table>
+</body>
+</html>
