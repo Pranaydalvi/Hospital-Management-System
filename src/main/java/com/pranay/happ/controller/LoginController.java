@@ -1,6 +1,6 @@
 package com.pranay.happ.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;  
+import org.springframework.beans.factory.annotation.Autowired;   
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,10 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pranay.happ.dto.Response;
 import com.pranay.happ.dto.UserResponseDto;
 import com.pranay.happ.entity.Login;
-import com.pranay.happ.entity.Role;
 import com.pranay.happ.filter.JwtUtility;
 import com.pranay.happ.serviceI.LoginServiceI;
-import com.pranay.happ.serviceI.RoleServiceI;
 import com.pranay.happ.serviceI.UserService;
 import com.pranay.happ.serviceIMPL.LoginServiceImpl;
 
@@ -84,8 +82,5 @@ public class LoginController {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 }
-
-
-
 
 
